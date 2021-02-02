@@ -1,50 +1,99 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//Реализовать метод подсчета суммы всех элементов обычного array
-//Реализовать метод подсчета суммы определенной строки jagged array
 
 namespace JaggedArray
 {
     class Program
     {
+
+        static int GetSumForArray(int[][] newArray, int rowIndex)
+        {
+
+            int sum = 0;
+            foreach (var item in newArray[rowIndex])
+            {
+                sum += item;
+            }
+            return sum;
+        }
+
         static void Main(string[] args)
         {
-            int[][] jaggedArray = new int[5][];
-            jaggedArray[0] = new int[7];
-            jaggedArray[1] = new int[9];
-            jaggedArray[2] = new int[13];
-            jaggedArray[3] = new int[15];
-            jaggedArray[4] = new int[17];
-
             Random rnd = new Random();
+            int randomer = rnd.Next(3, 10);
+
+            int[][] jaggedArray = new int[randomer][];
 
             for (int i = 0; i < jaggedArray.Length; i++)
             {
+                jaggedArray[i] = new int[rnd.Next(1, 10)];
                 for (int j = 0; j < jaggedArray[i].Length; j++)
                 {
                     jaggedArray[i][j] = rnd.Next(0, 10);
                 }
             }
+            PrintArray(jaggedArray);
+            SortArray(jaggedArray);
+            PrintArray(jaggedArray);
 
-             int GetSumForArray(int howString)
-            {
-
-                int sum = 0;
-                foreach (var item in jaggedArray[howString])
-                {
-                    sum += item;
-                }
-                return sum;
-            }
-
-            Console.WriteLine("Change string of array");
-            int stringOfArray = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Array:{0}\nSum all elements of array is: {1}", string.Join(" ", jaggedArray[stringOfArray]), GetSumForArray(stringOfArray));
+            //int rowIndex = GetRowIndex(jaggedArray.Length);
+            //Console.WriteLine("Array:{0}\nSum all elements of array is: {1}", string.Join(" ", jaggedArray[rowIndex]), GetSumForArray(jaggedArray, rowIndex));
+            
         }
-       
+
+        static void PrintArray(int[][] array)
+        {
+            Console.WriteLine("JaggedArray:");
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < array[i].Length; j++)
+                {
+                    Console.Write(array[i][j] + " ");
+                }
+                Console.Write("sum = {0}", GetSumForArray(array, i));
+                Console.WriteLine();
+            }
+            Console.WriteLine("");
+        }
+
+        static int GetRowIndex(int length)
+        {
+            int rowIndex;
+            Console.WriteLine("Choose row of array");
+            while ((!int.TryParse(Console.ReadLine(), out rowIndex)) || (rowIndex > length))
+            {
+                Console.Write("Error! Enter number of row\n");
+            }
+            return rowIndex - 1;
+        }
+        static void SortArray(int[][] jaggedArray)
+        {
+            int temp = 0; int tempMax = 0; int iMax = 0;
+            int[][] item = new int[jaggedArray.Length][];
+
+            for (int k=0; k < jaggedArray.Length; k++) {
+                for (int i = 0; i < jaggedArray.Length; i++)
+                {
+                    for (int j = 0; j < jaggedArray[i].Length; j++)
+                    {
+                        if (jaggedArray[i][j] > temp)
+                        {
+                            temp = jaggedArray[i][j];
+                        }
+
+ //                      Console.Write("{0} ", jaggedArray[i][j]);
+                    }
+                    if (tempMax < temp)
+                    {
+                        tempMax = temp;
+                        iMax = i;
+                    }
+//                   Console.WriteLine("");
+                    item[k] = jaggedArray[iMax];
+                    
+                }
+            }
+            
+        }
     }
 }
