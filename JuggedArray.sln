@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaggedArray", "JaggedArray.csproj", "{DA7AEEA1-0B53-4C4E-8E1B-F1B183CD1FB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaggedArray.Tests", "..\JaggedArray.Tests\JaggedArray.Tests.csproj", "{034A39CA-A064-4EC3-B63C-E77639937618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaggedArray.Tests", "JaggedArray.Tests\JaggedArray.Tests.csproj", "{034A39CA-A064-4EC3-B63C-E77639937618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

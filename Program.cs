@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace JaggedArray
 {
-    public class Program
+    class Program
     {
 
         static int GetSumForArray(int[][] newArray, int rowIndex)
@@ -34,8 +32,12 @@ namespace JaggedArray
                 }
             }
             PrintArray(jaggedArray);
-            var item = SortArray(jaggedArray);
-            PrintArray(item);
+            var resultArray = SortArray(jaggedArray);
+            PrintArray(resultArray);
+
+            //int rowIndex = GetRowIndex(jaggedArray.Length);
+            //Console.WriteLine("Array:{0}\nSum all elements of array is: {1}", string.Join(" ", jaggedArray[rowIndex]), GetSumForArray(jaggedArray, rowIndex));
+
         }
 
         static void PrintArray(int[][] array)
@@ -66,36 +68,37 @@ namespace JaggedArray
         }
         static int[][] SortArray(int[][] jaggedArray)
         {
-            var item = new Dictionary<int, int>();
+            int temp = 0; int tempMax = 0; int iMax = 0;
+            int[][] sortedArray = new int[jaggedArray.Length][];
 
-            for (int i=0; i < jaggedArray.Length; i++) 
+            for (int k = 0; k < jaggedArray.Length; k++)
             {
-                item.Add(i, GetMaxValueFromRow(jaggedArray[i]));
-            }
-            var arrayOfArray = new List<int[]>();
-            foreach (var temp in item.OrderByDescending(ValueSelector))
-            {
-                arrayOfArray.Add(jaggedArray[temp.Key]);
-            }
-            return arrayOfArray.ToArray();
-        }
-
-        public static int ValueSelector(KeyValuePair<int, int> item)
-        {
-            return item.Value;
-        }
-        public static int GetMaxValueFromRow (int[] line)
-        {
-            var maxNumberInRow = 0;
-            for (int j = 0; j < line.Length; j++)
-            {
-                if (line[j] > maxNumberInRow)
+                for (int i = 0; i < jaggedArray.Length; i++)
                 {
-                    maxNumberInRow = line[j];
+                    for (int j = 0; j < jaggedArray[i].Length; j++)
+                    {
+                        if (jaggedArray[i][j] > temp)
+                        {
+                            temp = jaggedArray[i][j];
+                        }
+                    }
+                    if (tempMax < temp)
+                    {
+                        tempMax = temp;
+                        iMax = i;
+                    }
+                    //Console.WriteLine(k);
+                    //Console.WriteLine(iMax);
+                    //Console.WriteLine(jaggedArray);
+                   
+                        sortedArray[k] = jaggedArray[iMax];
+                    
+                    
+                   
+                    
                 }
             }
-           
-            return maxNumberInRow;
+                    return sortedArray;
         }
     }
 }
