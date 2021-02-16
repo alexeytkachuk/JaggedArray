@@ -68,35 +68,34 @@ namespace JaggedArray
         }
         static int[][] SortArray(int[][] jaggedArray)
         {
-            int temp = 0; int tempMax = 0; int iMax = 0;
+              
             int[][] sortedArray = new int[jaggedArray.Length][];
 
             for (int k = 0; k < jaggedArray.Length; k++)
             {
+                int maxMatrixValue = 0;
+                int maxRowIndex = 0;
+                // Search the MaxValue in the matrix
                 for (int i = 0; i < jaggedArray.Length; i++)
                 {
+                    int maxRowValue = 0;
+                    // Search of maxValue in the row
                     for (int j = 0; j < jaggedArray[i].Length; j++)
                     {
-                        if (jaggedArray[i][j] > temp)
+
+                        if (jaggedArray[i][j] > maxRowValue)
                         {
-                            temp = jaggedArray[i][j];
+                            maxRowValue = jaggedArray[i][j];
                         }
                     }
-                    if (tempMax < temp)
+                    if (maxMatrixValue < maxRowValue)
                     {
-                        tempMax = temp;
-                        iMax = i;
+                        maxMatrixValue = maxRowValue;
+                        maxRowIndex = i;
                     }
-                    //Console.WriteLine(k);
-                    //Console.WriteLine(iMax);
-                    //Console.WriteLine(jaggedArray);
-                   
-                        sortedArray[k] = jaggedArray[iMax];
-                    
-                    
-                   
-                    
+
                 }
+                sortedArray[k] = jaggedArray[maxRowIndex];
             }
                     return sortedArray;
         }
