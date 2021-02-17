@@ -15,7 +15,6 @@ namespace JaggedArray
             }
             return sum;
         }
-
         static void Main(string[] args)
         {
             Random rnd = new Random();
@@ -34,12 +33,7 @@ namespace JaggedArray
             PrintArray(jaggedArray);
             var resultArray = SortArray(jaggedArray);
             PrintArray(resultArray);
-
-            //int rowIndex = GetRowIndex(jaggedArray.Length);
-            //Console.WriteLine("Array:{0}\nSum all elements of array is: {1}", string.Join(" ", jaggedArray[rowIndex]), GetSumForArray(jaggedArray, rowIndex));
-
         }
-
         static void PrintArray(int[][] array)
         {
             Console.WriteLine("JaggedArray:");
@@ -55,7 +49,6 @@ namespace JaggedArray
             }
             Console.WriteLine("");
         }
-
         static int GetRowIndex(int length)
         {
             int rowIndex;
@@ -68,36 +61,41 @@ namespace JaggedArray
         }
         static int[][] SortArray(int[][] jaggedArray)
         {
-              
-            int[][] sortedArray = new int[jaggedArray.Length][];
-
+            int[] maxValuesFromArray = new int[jaggedArray.Length];
             for (int k = 0; k < jaggedArray.Length; k++)
             {
-                int maxMatrixValue = 0;
-                int maxRowIndex = 0;
                 // Search the MaxValue in the matrix
-                for (int i = 0; i < jaggedArray.Length; i++)
+                int maxRowValue = 0;
+                // Search maxValue in the row
+                for (int j = 0; j < jaggedArray[k].Length; j++)
                 {
-                    int maxRowValue = 0;
-                    // Search of maxValue in the row
-                    for (int j = 0; j < jaggedArray[i].Length; j++)
+                    if (jaggedArray[k][j] > maxRowValue)
                     {
-
-                        if (jaggedArray[i][j] > maxRowValue)
-                        {
-                            maxRowValue = jaggedArray[i][j];
-                        }
+                        maxRowValue = jaggedArray[k][j];
                     }
-                    if (maxMatrixValue < maxRowValue)
-                    {
-                        maxMatrixValue = maxRowValue;
-                        maxRowIndex = i;
-                    }
-
                 }
-                sortedArray[k] = jaggedArray[maxRowIndex];
+                maxValuesFromArray[k] = maxRowValue;
             }
-                    return sortedArray;
+           
+            int temp = 0;
+            int[] tempArray;
+            for (int j = 0; j <= maxValuesFromArray.Length - 2; j++)
+            {
+                for (int i = 0; i <= maxValuesFromArray.Length - 2; i++)
+                {
+                    if (maxValuesFromArray[i] < maxValuesFromArray[i + 1])
+                    {
+                        temp = maxValuesFromArray[i + 1];
+                        maxValuesFromArray[i + 1] = maxValuesFromArray[i];
+                        maxValuesFromArray[i] = temp;
+
+                        tempArray = jaggedArray[i + 1];
+                        jaggedArray[i + 1] = jaggedArray[i];
+                        jaggedArray[i] = tempArray;
+                    }
+                }
+            }
+            return jaggedArray;
         }
     }
 }
